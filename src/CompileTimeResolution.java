@@ -1,5 +1,5 @@
 /**
- * This demonstrates how Java polymorphism applies to the compile time type.
+ * This demonstrates how Java polymorphism is limited to the compile time type.
  */
 public class CompileTimeResolution {
 
@@ -10,6 +10,8 @@ public class CompileTimeResolution {
 
         sayHello(a);
         sayHello(b);
+
+        // Explicitly casting to the runtime type of the object makes no difference
         sayHello(c.getClass().cast(c));
     }
 
@@ -17,10 +19,12 @@ public class CompileTimeResolution {
         System.out.println("Hello A");
     }
 
+    // Never called
     private static void sayHello(SomethingB b) {
         System.out.println("Hello B");
     }
 
+    // Never called
     private static void sayHello(SomethingC c) {
         System.out.println("Hello C");
     }
