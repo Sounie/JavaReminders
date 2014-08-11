@@ -3,7 +3,7 @@
  */
 public class CompileTimeResolution {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         SomethingA a = new SomethingA();
         SomethingA b = new SomethingB();
         SomethingA c = new SomethingC();
