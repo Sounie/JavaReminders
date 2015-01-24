@@ -1,0 +1,44 @@
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.util.Map;
+import java.util.Properties;
+
+public class ShowJvmProperties {
+    public static void main(String[] args) {
+        Properties properties = System.getProperties();
+
+//        for (Map.Entry entry : properties.entrySet()) {
+//            System.out.println(entry.getKey() + " " + entry.getValue());
+//        }
+//
+//        properties.forEach((key, value) -> System.out.println(key + "\t" + value));
+
+//        outputEnv();
+
+//        outputSystemMemory();
+        outputMemoryFromMXBean();
+    }
+
+    private static void outputEnv() {
+        Map<String, String> env = System.getenv();
+
+        env.forEach((key, value) -> System.out.println(key + "\t" + value));
+    }
+
+    private static void outputSystemMemory() {
+        Runtime runtime = Runtime.getRuntime();
+        long freeMemory = runtime.freeMemory();
+        long maxMemory = runtime.maxMemory();
+
+        long totalMemory = runtime.totalMemory();
+
+        System.out.println("Memory: free " + freeMemory + "\tmax\t" + maxMemory + "\ttotal\t" + totalMemory);
+
+    }
+
+    private static void outputMemoryFromMXBean() {
+        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+
+        System.out.println("Heap memory usage " + ((MemoryMXBean) memoryMXBean).getHeapMemoryUsage());
+    }
+}
