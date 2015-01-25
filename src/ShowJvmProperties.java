@@ -54,5 +54,8 @@ public class ShowJvmProperties {
         double systemLoadAverage = operatingSystemMXBean.getSystemLoadAverage();
 
         System.out.println("OS: " + name + " " + version);
+        System.out.println("Architecture: " + arch + " processors: " + availableProcessors);
+
+        System.out.println("Current load average: " + systemLoadAverage);
     }
 }
