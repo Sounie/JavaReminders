@@ -1,5 +1,6 @@
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
+import java.lang.management.OperatingSystemMXBean;
 import java.util.Map;
 import java.util.Properties;
 
@@ -16,7 +17,8 @@ public class ShowJvmProperties {
 //        outputEnv();
 
 //        outputSystemMemory();
-        outputMemoryFromMXBean();
+//        outputMemoryFromMXBean();
+        outputOperatingSystemInfo();
     }
 
     private static void outputEnv() {
@@ -40,5 +42,17 @@ public class ShowJvmProperties {
         MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
 
         System.out.println("Heap memory usage " + ((MemoryMXBean) memoryMXBean).getHeapMemoryUsage());
+    }
+
+    private static void outputOperatingSystemInfo() {
+        OperatingSystemMXBean operatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean();
+
+        String name = operatingSystemMXBean.getName();
+        String version = operatingSystemMXBean.getVersion();
+        String arch = operatingSystemMXBean.getArch();
+        int availableProcessors = operatingSystemMXBean.getAvailableProcessors();
+        double systemLoadAverage = operatingSystemMXBean.getSystemLoadAverage();
+
+        System.out.println("OS: " + name + " " + version);
     }
 }
