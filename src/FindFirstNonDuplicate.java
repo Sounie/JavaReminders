@@ -21,7 +21,7 @@ public class FindFirstNonDuplicate {
         }
     }
 
-    // Returns first non duplicate character if one exists, otherwise returns null
+    // Returns Optional of first non duplicate character if one exists
     private static Optional<Character> firstNonDuplicate(String input) {
         LinkedHashMap<Character, Integer> characterOccurences = new LinkedHashMap<>();
 
