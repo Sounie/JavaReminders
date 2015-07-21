@@ -8,35 +8,35 @@ import java.util.Random;
  */
 public class ArrayListApi {
     public static void main(String args[]) {
-        indexOfSortedList();
+        for (int z = 0; z < 50; z++) {
+            indexOfSortedList();
+        }
 //       trimToSize();
     }
 
     private static void indexOfSortedList() {
         // indexOf is a bit naive, so let's see if a sorted list can be made to behave better with binarySearch
-        ArrayList<Integer> sorted = new ArrayList<>();
-
-        // Initialising the list capacity to exactly what is required doubles the setup duration on my Mac Pro
-//        ArrayList<Integer> sorted = new ArrayList<>(37498617);
-
-
+        ArrayList<Integer> sorted = new ArrayList<>(5000000);
+        // Pre-loading randoms
         Random random = new Random();
         random.setSeed(1337L);
+        boolean[] randoms = new boolean[2000000];
 
-        long beforeSetup = System.currentTimeMillis();
-        for (int i = 0; i < 25_000_000; i++) {
+        for (int b = 0; b < 2000000; b++) {
+            randoms[b] = random.nextBoolean();
+        }
+
+//        long beforeSetup = System.currentTimeMillis();
+        for (int i = 0; i < 2000000; i++) {
             sorted.add(i);
 
             // Introducing duplicates at random points
-            if (random.nextBoolean()) {
+            if (randoms[i]) {
                 sorted.add(i);
             }
         }
-        System.out.println("DEBUG - sorted size: " + sorted.size());
 
-        System.out.println("Setup duration: " + (System.currentTimeMillis() - beforeSetup));
-
-        final Integer target = Integer.valueOf(20_000_000);
+        final Integer target = Integer.valueOf(150000);
 
         long timeBefore = System.currentTimeMillis();
         int anIndex = Collections.binarySearch(sorted, target,
@@ -54,11 +54,11 @@ public class ArrayListApi {
 
         System.out.println("Duration indexOf " + (System.currentTimeMillis() - timeBeforeIndexOf));
 
-        System.out.println("IndexOf value " + indexOfVal);
-        System.out.println("IndexOf verification: " + sorted.get(indexOfVal));
-
-        System.out.println("Found at index " + anIndex);
-        System.out.println("DEBUG - item was - " + sorted.get(anIndex));
+//        System.out.println("IndexOf value " + indexOfVal);
+//        System.out.println("IndexOf verification: " + sorted.get(indexOfVal));
+//
+//        System.out.println("Found at index " + anIndex);
+//        System.out.println("DEBUG - item was - " + sorted.get(anIndex));
     }
 
     private static void trimToSize() {
