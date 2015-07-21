@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
+
 import java.util.Random;
 
 /**
@@ -13,12 +13,18 @@ public class ArrayListApi {
     }
 
     private static void indexOfSortedList() {
-        // indexOf is a bit naive, so let's see if a sorted list can be made to behave better
+        // indexOf is a bit naive, so let's see if a sorted list can be made to behave better with binarySearch
         ArrayList<Integer> sorted = new ArrayList<>();
 
-        Random random = new Random();
+        // Initialising the list capacity to exactly what is required doubles the setup duration on my Mac Pro
+//        ArrayList<Integer> sorted = new ArrayList<>(37498617);
 
-        for (int i = 0; i < 50_000_000; i++) {
+
+        Random random = new Random();
+        random.setSeed(1337L);
+
+        long beforeSetup = System.currentTimeMillis();
+        for (int i = 0; i < 25_000_000; i++) {
             sorted.add(i);
 
             // Introducing duplicates at random points
@@ -26,8 +32,11 @@ public class ArrayListApi {
                 sorted.add(i);
             }
         }
+        System.out.println("DEBUG - sorted size: " + sorted.size());
 
-        final Integer target = Integer.valueOf(48_000_000);
+        System.out.println("Setup duration: " + (System.currentTimeMillis() - beforeSetup));
+
+        final Integer target = Integer.valueOf(20_000_000);
 
         long timeBefore = System.currentTimeMillis();
         int anIndex = Collections.binarySearch(sorted, target,
